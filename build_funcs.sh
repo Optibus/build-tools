@@ -2,10 +2,10 @@ e() {
     echo $(date -u) $1
 }
 
-IMAGE_PREFIX=d.optibus
 
 build() {
 
+    IMAGE_PREFIX=d.optibus
     export FROM_IMAGE=$IMAGE_PREFIX/$FROM_IMAGE
 
     export IMAGE=$IMAGE_PREFIX/$IMAGE
@@ -27,3 +27,5 @@ build() {
     fi
     e "$IMAGE built."
 }
+
+export BUILD_TOOLS_LOADED=1
