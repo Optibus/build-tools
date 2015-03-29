@@ -2,12 +2,23 @@ e() {
     echo $(date -u) $1
 }
 
+export IMAGE_PREFIX=d.optibus
+
+push() {
+    img=d.optibus/$1:$TAG
+    e "Pushing $img"
+    docker push $img
+}
+
+set_tag() {
+    if [[ -z "$TAG" ]]; then
+        export TAG=$(git show | head -1 | awk '{ print $2 }')
+    fi
+}
 
 build() {
 
-    IMAGE_PREFIX=d.optibus
     export FROM_IMAGE=$IMAGE_PREFIX/$FROM_IMAGE
-
     export IMAGE=$IMAGE_PREFIX/$IMAGE
 
     BUILD_TOOLS_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
